@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Ventas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gestión de Ventas</h1>
+        <form id="formulario">
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" name="fecha" required>
+
+            <label for="cliente">Cliente:</label>
+            <input type="text" id="cliente" name="cliente" placeholder="Nombre del cliente" required>
+
+            <label for="producto">Producto:</label>
+            <input type="text" id="producto" name="producto" placeholder="Nombre del producto" required>
+
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" id="cantidad" name="cantidad" min="1" step="1" required>
+
+            <label for="precio">Precio unitario:</label>
+            <input type="number" id="precio" name="precio" min="0" step="0.01" required>
+
+            <input type="submit" value="Guardar">
+        </form>
+        <h2>Lista de Ventas</h2>
+        <table id="ventas">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Cliente</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const formulario = document.getElementById("formulario");
+        const ventasTabla = document.getElementById("ventas");
+        const ventas = [];
+
+        formulario.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const fecha = document.getElementById("fecha").value;
+            const cliente = document.getElementById("cliente").value;
+            const producto = document.getElementById("producto").value;
+            const cantidad = parseInt(document.getElementById("cantidad").value);
+            const precio = parseFloat(document.getElementById("precio").value);
+
+            const total = cantidad * precio;
+
+            const venta = {
+                fecha,
+                cliente,
+                producto,
+                cantidad,
+                precio,
+                total
+            };
+
+            ventas.push(venta);
+            mostrarVentas();
+            formulario.reset();
+        });
+
+        function mostrarVentas() {
+            const tbody = ventasTabla.querySelector("tbody");
+            tbody.innerHTML = "";
+
+            ventas.forEach((venta) => {
+                const fila = `
+                    <tr>
+                        <td>${venta.fecha}</td>
+                        <td>${venta.cliente}</td>
+                        <td>${venta.producto}</td>
+                        <td>${venta.cantidad}</td>
+                        <td>${venta.precio.toFixed(2)}</td>
+                        <td>${venta.total.toFixed(2)}</td>
+                    </tr>
+                `;
+
+                tbody.innerHTML += fila;
+            });
+        }
+    </script>
+</body>
+</html>
