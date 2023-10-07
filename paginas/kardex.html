@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kardex de Productos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kardex de Productos</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Descripción</th>
+                    <th>Entradas</th>
+                    <th>Salidas</th>
+                    <th>Existencia</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2023-10-01</td>
+                    <td>Compra de productos</td>
+                    <td>100</td>
+                    <td>0</td>
+                    <td>100</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
