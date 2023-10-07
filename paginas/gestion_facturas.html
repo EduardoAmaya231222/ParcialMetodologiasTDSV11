@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Facturas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gestión de Facturas</h1>
+        <form id="formulario">
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" name="fecha" required>
+
+            <label for="cliente">Cliente:</label>
+            <input type="text" id="cliente" name="cliente" placeholder="Nombre del cliente" required>
+
+            <label for="producto">Producto:</label>
+            <input type="text" id="producto" name="producto" placeholder="Nombre del producto" required>
+
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" id="cantidad" name="cantidad" min="1" step="1" required>
+
+            <label for="precio">Precio unitario:</label>
+            <input type="number" id="precio" name="precio" min="0" step="0.01" required>
+
+            <label for="tipo_factura">Tipo de Factura:</label>
+            <select id="tipo_factura" name="tipo_factura" required>
+                <option value="consumidor_final">Consumidor Final</option>
+                <option value="credito_fiscal">Crédito Fiscal</option>
+                <option value="retencion_iva">Retención de IVA</option>
+            </select>
+
+            <input type="submit" value="Guardar">
+        </form>
+        <h2>Lista de Facturas</h2>
+        <table id="facturas">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Cliente</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Tipo de Factura</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const formulario = document.getElementById("formulario");
+        const facturasTabla = document.getElementById("facturas");
+        const facturas = [];
+
+        formulario.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const fecha = document.getElementById("fecha").value;
+            const cliente = document.getElementById("cliente").value;
+            const producto = document.getElementById("producto").value;
+            const cantidad = parseInt(document.getElementById("cantidad").value);
+            const precio = parseFloat(document.getElementById("precio").value);
+            const tipoFactura = document.getElementById("tipo_factura").value;
+
+            const factura = {
+                fecha,
+                cliente,
+                producto,
+                cantidad,
+                precio,
+                tipoFactura
+            };
+
+            facturas.push(factura);
+            mostrarFacturas();
+            formulario.reset();
+        });
+
+        function mostrarFacturas() {
+            const tbody = facturasTabla.querySelector("tbody");
+            tbody.innerHTML = "";
+
+            facturas.forEach((factura, index) => {
+                const fila = `
+                    <tr>
+                        <td>${factura.fecha}</td>
+                        <td>${factura.cliente}</td>
+                        <td>${factura.producto}</td>
+                        <td>${factura.cantidad}</td>
+                        <td>${factura.precio.toFixed(2)}</td>
+                        <td>${factura.tipoFactura}</td>
+                        <td>
+                            <button onclick="editarFactura(${index})">Editar</button>
+                            <button onclick="eliminarFactura(${index})">Eliminar</button>
+                        </td>
+                    </tr>
+                `;
+
+                tbody.innerHTML += fila;
+            });
+        }
+
+        function editarFactura(index) {
+            const factura = facturas[index];
+            document.getElementById("fecha").value = factura.fecha;
+            document.getElementById("cliente").value = factura.cliente;
+            document.getElementById("producto").value = factura.producto;
+            document.getElementById("cantidad").value = factura.cantidad;
+            document.getElementById("precio").value = factura.precio;
+            document.getElementById("tipo_factura").value = factura.tipoFactura;
+
+            facturas.splice(index, 1);
+            mostrarFacturas();
+        }
+
+        function eliminarFactura(index) {
+            facturas.splice(index, 1);
+            mostrarFacturas();
+        }
+    </script>
+</body>
+</html>
