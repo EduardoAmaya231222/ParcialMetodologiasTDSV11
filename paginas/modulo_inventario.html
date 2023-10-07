@@ -70,24 +70,33 @@
             background-color: #0056b3;
         }
 
-        .btn-view {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 23px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        /* Estilo adicional para el Kardex */
+        #kardex {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
         }
 
-        .btn-view:hover {
-            background-color: #0056b3;
+        #kardex th, #kardex td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #kardex th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        #kardex tr:nth-child(even) {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Módulo de Inventario - PEPS</h1>
-        <form>
+        <form id="formulario">
             <label for="fecha">Fecha:</label>
             <input type="date" id="fecha" name="fecha">
 
@@ -105,8 +114,50 @@
 
             <input type="submit" value="Guardar">
         </form>
-        <br>
-        <button class="btn-view" onclick="window.open('kardex.html', '_blank')">Kardex</button>
+        <h2>Kardex de Productos</h2>
+        <table id="kardex">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Descripción</th>
+                    <th>Entradas</th>
+                    <th>Salidas</th>
+                    <th>Existencia</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </div>
+
+    <script>
+        document.getElementById("formulario").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const fecha = document.getElementById("fecha").value;
+            const producto = document.getElementById("producto").value;
+            const cantidad = parseInt(document.getElementById("cantidad").value);
+            const costo = parseFloat(document.getElementById("costo").value);
+            const descripcion = document.getElementById("descripcion").value;
+
+            const entradas = cantidad;
+            const salidas = 0;
+
+            const existencia = cantidad;
+
+            const fila = `
+                <tr>
+                    <td>${fecha}</td>
+                    <td>${descripcion}</td>
+                    <td>${entradas}</td>
+                    <td>${salidas}</td>
+                    <td>${existencia}</td>
+                </tr>
+            `;
+
+            document.querySelector("#kardex tbody").innerHTML += fila;
+            document.getElementById("formulario").reset();
+        });
+    </script>
 </body>
 </html>
