@@ -174,19 +174,90 @@
 
         sucursales.forEach((sucursal, index) => {
           const fila = `
+        <h1>Gestión de Sucursales</h1>
+        <form id="formulario">
+            <label for="fecha">Fecha de Registro</label>
+            <input type="date" id="fecha" name="fecha" required>
+
+            <label for="sucursal">Sucursal</label>
+            <input type="text" id="nombreSucursal" name="sucursal" placeholder="Nombre de sucursal" required>
+
+            <label for="direccion">Direccion</label>
+            <input type="text" id="direccion" name="direccion" placeholder="Ingrese una direccion" required>
+
+            <label for="telefono">Telefono</label>
+            <input type="text" id="telefono" name="telefono" placeholder="Ingrese un numero telefonico" required>
+
+            <label for="tipo_sucursal">Tipo de Sucursal:</label>
+            <select id="tipo_sucursal" name="tipo_sucursal" required>
+                <option value="local">Sucursal local</option>
+                <option value="extranjera">Sucursal extranjera</option>
+            </select>
+
+            <input type="submit" value="Guardar">
+        </form>
+        <h2>Lista de Sucursales</h2>
+        <table id="sucursales">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Nombre</th>
+                    <th>Direccion</th>
+                    <th>Telefono</th>
+                    <th>Tipo de sucursal</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const formulario = document.getElementById("formulario");
+        const sucursalesTabla = document.getElementById("sucursales");
+        const sucursal= [];
+
+        formulario.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const fecha = document.getElementById("fecha").value;
+            const nombre = document.getElementById("nombreSucursal").value;
+            const direccion = document.getElementById("direccion").value;
+            const telefono = parseInt(document.getElementById("telefono").value);
+            const tipoSucursal = document.getElementById("tipo_sucursal").value;
+
+            const sucursal = {
+                fecha,
+                nombre,
+                direccion,
+                telefono,
+                tipoSucursal
+            };
+
+            sucursales.push(sucursal);
+            mostrarSucursales();
+            formulario.reset();
+        });
+
+        function mostrarSucursales() {
+            const tbody = sucursalesTabla.querySelector("tbody");
+            tbody.innerHTML = "";
+
+            sucursales.forEach((sucursal, index) => {
+                const fila = `
                     <tr>
                         <td>${sucursal.fecha}</td>
                         <td>${sucursal.nombre}</td>
                         <td>${sucursal.direccion}</td>
                         <td>${sucursal.telefono}</td>
-                        <td>${sucursal.tipoFactura}</td>
+                        <td>${sucursal.tipoSucursal}</td>
                         <td>
                             <button onclick="editarSucursal(${index})">Editar</button>
                             <button onclick="eliminarSucursal(${index})">Eliminar</button>
                         </td>
                     </tr>
                 `;
-
           tbody.innerHTML += fila;
         });
       }
@@ -208,6 +279,26 @@
         facturas.splice(index, 1);
         mostrarFacturas();
       }
+                tbody.innerHTML += fila;
+            });
+        }
+
+        function editarSucursal(index) {
+            const sucursal = sucursales[index];
+            document.getElementById("fecha").value = sucursal.fecha;
+            document.getElementById("nombre").value = sucursal.nombre;
+            document.getElementById("direccion").value = sucursal.direccion;
+            document.getElementById("telefono").value = sucursal.telefono;
+            document.getElementById("tipo_sucursal").value = sucursal.tipoSucursal;
+
+            sucursales.splice(index, 1);
+            mostrarSucursales();
+        }
+
+        function eliminarSucursal(index) {
+            secursales.splice(index, 1);
+            mostrarSucursales();
+        }
     </script>
   </body>
 </html>
