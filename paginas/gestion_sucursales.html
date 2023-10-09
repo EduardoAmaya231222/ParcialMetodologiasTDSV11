@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de Sucursales</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gestión de Sucursales</h1>
+        <form id="formulario">
+            <label for="fecha">Fecha</label>
+            <input type="date" id="fecha" name="fecha" required>
+
+            <label for="nombreSucursal">Nombre de sucursal</label>
+            <input type="text" id="nombreSucursal" name="nombreSucursal" placeholder="Ingrese un nombre" required>
+
+            <label for="direccion">Direccion</label>
+            <input type="text" id="direccion" name="direccion" placeholder="Ingrese una direccion" required>
+
+            <label for="telefono">Telefono</label>
+            <input type="number" id="telefono" name="telefono" required>
+
+            <label for="tipo_sucursal">Tipo de sucursal</label>
+            <select id="tipo_sucursal" name="tipo_sucursal" required>
+                <option value="consumidor_final">Sucursal local</option>
+                <option value="credito_fiscal">Sucursal extranjera</option>
+            </select>
+
+            <input type="submit" value="Guardar">
+        </form>
+        <h2>Lista de Sucursales</h2>
+        <table id="sucursales">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Nombre de sucursal</th>
+                    <th>Direccion</th>
+                    <th>Telefono</th>
+                    <th>Tipo de Sucursal</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const formulario = document.getElementById("formulario");
+        const sucursalesTabla = document.getElementById("sucursales");
+        const sucursales = [];
+
+        formulario.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const fecha = document.getElementById("fecha").value;
+            const nombreSucursal = document.getElementById("nombreSucursal").value;
+            const direccion = document.getElementById("direccion").value;
+            const telefono = parseInt(document.getElementById("telefono").value);
+            const tipoSucursal = document.getElementById("tipo_sucursal").value;
+
+            const sucursal = {
+                fecha,
+                nombreSucursal,
+                direccion,
+                telefono,
+                precio,
+                tipoSucursal
+            };
+
+            sucursales.push(sucursal);
+            mostrarSucursales();
+            formulario.reset();
+        });
+
+        function mostrarSucursales() {
+            const tbody = sucursalesTabla.querySelector("tbody");
+            tbody.innerHTML = "";
+
+<<<<<<< Updated upstream
+        sucursales.forEach((sucursal, index) => {
+          const fila = `
+        <h1>Gestión de Sucursales</h1>
+        <form id="formulario">
+            <label for="fecha">Fecha de Registro</label>
+            <input type="date" id="fecha" name="fecha" required>
+
+            <label for="sucursal">Sucursal</label>
+            <input type="text" id="nombreSucursal" name="sucursal" placeholder="Nombre de sucursal" required>
+
+            <label for="direccion">Direccion</label>
+            <input type="text" id="direccion" name="direccion" placeholder="Ingrese una direccion" required>
+
+            <label for="telefono">Telefono</label>
+            <input type="text" id="telefono" name="telefono" placeholder="Ingrese un numero telefonico" required>
+
+            <label for="tipo_sucursal">Tipo de Sucursal:</label>
+            <select id="tipo_sucursal" name="tipo_sucursal" required>
+                <option value="local">Sucursal local</option>
+                <option value="extranjera">Sucursal extranjera</option>
+            </select>
+
+            <input type="submit" value="Guardar">
+        </form>
+        <h2>Lista de Sucursales</h2>
+        <table id="sucursales">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Nombre</th>
+                    <th>Direccion</th>
+                    <th>Telefono</th>
+                    <th>Tipo de sucursal</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const formulario = document.getElementById("formulario");
+        const sucursalesTabla = document.getElementById("sucursales");
+        const sucursal= [];
+
+        formulario.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const fecha = document.getElementById("fecha").value;
+            const nombre = document.getElementById("nombreSucursal").value;
+            const direccion = document.getElementById("direccion").value;
+            const telefono = parseInt(document.getElementById("telefono").value);
+            const tipoSucursal = document.getElementById("tipo_sucursal").value;
+
+            const sucursal = {
+                fecha,
+                nombre,
+                direccion,
+                telefono,
+                tipoSucursal
+            };
+
+            sucursales.push(sucursal);
+            mostrarSucursales();
+            formulario.reset();
+        });
+
+        function mostrarSucursales() {
+            const tbody = sucursalesTabla.querySelector("tbody");
+            tbody.innerHTML = "";
+
+=======
+>>>>>>> Stashed changes
+            sucursales.forEach((sucursal, index) => {
+                const fila = `
+                    <tr>
+                        <td>${sucursal.fecha}</td>
+                        <td>${sucursal.nombreSucursal}</td>
+                        <td>${sucursal.direccion}</td>
+                        <td>${sucursal.telefono}</td>
+                        <td>${sucursal.tipoSucursal}</td>
+                        <td>
+                            <button onclick="editarSucursal(${index})">Editar</button>
+                            <button onclick="eliminarSucursal(${index})">Eliminar</button>
+                        </td>
+                    </tr>
+                `;
+<<<<<<< Updated upstream
+          tbody.innerHTML += fila;
+        });
+      }
+=======
+
+                tbody.innerHTML += fila;
+            });
+        }
+>>>>>>> Stashed changes
+
+        function editarSucursal(index) {
+            const sucursal = sucursales[index];
+            document.getElementById("fecha").value = sucursal.fecha;
+            document.getElementById("nombreSucursal").value = sucursal.nombreSucursal;
+            document.getElementById("direccion").value = sucursal.direccion;
+            document.getElementById("telefono").value = sucursal.telefono;
+            document.getElementById("tipo_sucursal").value = sucursal.tipoSucursal;
+
+            sucursales.splice(index, 1);
+            mostrarSucursales();
+        }
+
+<<<<<<< Updated upstream
+      function eliminarFactura(index) {
+        facturas.splice(index, 1);
+        mostrarFacturas();
+      }
+                tbody.innerHTML += fila;
+            });
+        }
+
+        function editarSucursal(index) {
+            const sucursal = sucursales[index];
+            document.getElementById("fecha").value = sucursal.fecha;
+            document.getElementById("nombre").value = sucursal.nombre;
+            document.getElementById("direccion").value = sucursal.direccion;
+            document.getElementById("telefono").value = sucursal.telefono;
+            document.getElementById("tipo_sucursal").value = sucursal.tipoSucursal;
+
+            sucursales.splice(index, 1);
+            mostrarSucursales();
+        }
+
+        function eliminarSucursal(index) {
+            secursales.splice(index, 1);
+            mostrarSucursales();
+        }
+=======
+        function eliminarSucursal(index) {
+            sucursales.splice(index, 1);
+            mostrarSucursales();
+        }
+>>>>>>> Stashed changes
+    </script>
+</body>
+</html>
