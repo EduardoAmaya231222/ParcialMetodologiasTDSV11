@@ -94,7 +94,7 @@
             <input type="text" id="direccion" name="direccion" placeholder="Ingrese una direccion" required>
 
             <label for="telefono">Telefono</label>
-            <input type="number" id="telefono" name="telefono" placeholder="Ingrese un numero telefonico" required>
+            <input type="text" id="telefono" name="telefono" placeholder="Ingrese un numero telefonico" required>
 
             <label for="tipo_sucursal">Tipo de Sucursal:</label>
             <select id="tipo_sucursal" name="tipo_sucursal" required>
@@ -135,12 +135,12 @@
             const telefono = parseInt(document.getElementById("telefono").value);
             const tipoSucursal = document.getElementById("tipo_sucursal").value;
 
-            const sucursal= {
+            const sucursal = {
                 fecha,
                 nombre,
                 direccion,
                 telefono,
-                tipoFactura
+                tipoSucursal
             };
 
             sucursales.push(sucursal);
@@ -159,7 +159,7 @@
                         <td>${sucursal.nombre}</td>
                         <td>${sucursal.direccion}</td>
                         <td>${sucursal.telefono}</td>
-                        <td>${sucursal.tipoFactura}</td>
+                        <td>${sucursal.tipoSucursal}</td>
                         <td>
                             <button onclick="editarSucursal(${index})">Editar</button>
                             <button onclick="eliminarSucursal(${index})">Eliminar</button>
@@ -172,21 +172,20 @@
         }
 
         function editarSucursal(index) {
-            const factura = facturas[index];
-            document.getElementById("fecha").value = factura.fecha;
-            document.getElementById("cliente").value = factura.cliente;
-            document.getElementById("producto").value = factura.producto;
-            document.getElementById("cantidad").value = factura.cantidad;
-            document.getElementById("precio").value = factura.precio;
-            document.getElementById("tipo_factura").value = factura.tipoFactura;
+            const sucursal = sucursales[index];
+            document.getElementById("fecha").value = sucursal.fecha;
+            document.getElementById("nombre").value = sucursal.nombre;
+            document.getElementById("direccion").value = sucursal.direccion;
+            document.getElementById("telefono").value = sucursal.telefono;
+            document.getElementById("tipo_sucursal").value = sucursal.tipoSucursal;
 
-            facturas.splice(index, 1);
-            mostrarFacturas();
+            sucursales.splice(index, 1);
+            mostrarSucursales();
         }
 
-        function eliminarFactura(index) {
-            facturas.splice(index, 1);
-            mostrarFacturas();
+        function eliminarSucursal(index) {
+            secursales.splice(index, 1);
+            mostrarSucursales();
         }
     </script>
 </body>
